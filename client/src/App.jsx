@@ -22,6 +22,9 @@ function App() {
 
   /*por ejemplo aca indica que para la ruta login siempre se utilizara el AuthLayout */
   /*para la ruta boards se utlizara el AppLayout */
+  /*TOMAR MUY en cuenta que las rutas van por orden
+   osea si yo ingreso a localhost / se ira por el camino de login y signup,
+    en este caso sería login el que invoca cada vez a la ruta raiz porque así va el orden */
   return (
     <ThemeProvider theme={theme}>
       <CssBaseLine />

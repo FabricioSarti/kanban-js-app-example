@@ -23,6 +23,7 @@ router.post(
             }
         })
     }),
+    //siempre valida que todo este bien en el header es un middleware
     validation.validate,
     userController.register
 )

@@ -19,6 +19,7 @@ router.post(
     body('username').custom(value => {
         return User.findOne({ username: value }).then(user => {
             if (user) {
+                //retorna un promise reject que indica que no procesara la peticion
                 return Promise.reject('username already used')
             }
         })

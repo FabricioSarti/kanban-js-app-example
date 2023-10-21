@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
 
         const user = await User.create(req.body);
 
-        //genera el token JWT
+        //genera el token JWT y en sesion se coloca info del usuario en este caso user._id
         const token = jsonwebtoken.sign(
             { id: user._id },
             process.env.PASSWORD_SECRET_KEY,

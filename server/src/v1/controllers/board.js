@@ -4,9 +4,10 @@ const Task = require("../models/task")
 
 exports.create = async (req, res) => {
     try {
+        //en cada request va el token y la info del usuario req.user._id
         const boardsCount = await Board.find().count();
         const board = await Board.create({
-            user: req.user_id,
+            user: req.user._id,
             position: boardsCount > 0 ? boardsCount : 0
         })
         res.status(201).json(board)

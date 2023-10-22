@@ -142,9 +142,9 @@ const Kanban = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <Button onClick={createSection}>Add section</Button>
+        <Button onClick={createSection}>Agregar seccion</Button>
         <Typography variant="body2" fontWeight="700">
-          {data.length} Sections
+          {data.length} Secciones
         </Typography>
       </Box>
       <Divider sx={{ margin: "10px 0" }} />

@@ -112,6 +112,7 @@ exports.getFavourites = async (req, res) => {
 exports.updateFavouritePosition = async (req, res) => {
     const { boards } = req.body
     try {
+        //aca se le manda todos los boards que ha cargado un usuario y se actualiza uno a uno su posicion
         for (const key in boards.reverse()) {
             const board = boards[key]
             await Board.findByIdAndUpdate(
@@ -128,6 +129,7 @@ exports.updateFavouritePosition = async (req, res) => {
 exports.delete = async (req, res) => {
     const { boardId } = req.params
     try {
+        //este metodo elimina el board y se va en cadena hasta eliminar los tasks 
         const sections = await Section.find({ board: boardId })
         for (const section of sections) {
             await Task.deleteMany({ section: section.id })
@@ -136,6 +138,13 @@ exports.delete = async (req, res) => {
 
         const currentBoard = await Board.findById(boardId)
 
+        /*
+        { $ne: boardId }: Esto es una expresión de filtro que utiliza el operador $ne (no es igual a). 
+        Esta expresión verifica si el valor del campo _id no es igual al valor de boardId. En otras palabras, 
+        esta consulta seleccionará todos los documentos cuyo campo _id sea diferente al valor de boardId.
+        
+        */
+
         if (currentBoard.favourite) {
             const favourites = await Board.find({
                 user: currentBoard.user,
@@ -143,6 +152,14 @@ exports.delete = async (req, res) => {
                 _id: { $ne: boardId }
             }).sort('favouritePosition')
 
+            /*
+            $set es un operador de actualización en MongoDB que se utiliza para establecer o cambiar el valor de un campo en un documento.
+                { favouritePosition: key } es un objeto que indica qué campo se debe actualizar y cuál debe ser su nuevo valor. En este caso:
+                    favouritePosition es el nombre del campo que se está actualizando.
+                key parece ser el nuevo valor que se establecerá en el campo favouritePosition.
+            
+            
+            */
             for (const key in favourites) {
                 const element = favourites[key]
                 await Board.findByIdAndUpdate(
